@@ -63,21 +63,23 @@ if(!$token) die("トークンなし");
 
 list($b64,$sign)=explode(".",$token);
 
+/* 署名チェック */
 $expected=hash_hmac("sha256",$b64,SECRET_KEY);
-
 if(!hash_equals($expected,$sign)){
 die("不正トークン");
 }
 
 $data=json_decode(base64_decode($b64),true);
 
+/* 有効期限 */
 if($data["exp"]<time()){
 die("期限切れ");
 }
 
+/* 出力は必ずエスケープ */
 echo "ログイン成功<br>";
-echo "email: ".$data["email"]."<br>";
-echo "username: ".$data["username"];
+echo "email: ".htmlspecialchars($data["email"])."<br>";
+echo "username: ".htmlspecialchars($data["username"]);
 ```
 
 ---
