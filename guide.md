@@ -47,7 +47,7 @@ Lichtnetでログイン
 Lichtnetログイン成功後、以下の形式で戻ります。
 
 ```
-https://yoursite.com/callback.php?token=xxxxxxxx
+https://yoursite.com/callback.php
 ```
 
 例：
@@ -57,11 +57,17 @@ https://yoursite.com/callback.php?token=xxxxxxxx
 
 define("SECRET_KEY","LICHTNET_SECRET_KEY");
 
-$token=$_GET["token"] ?? "";
+$token=$_POST["token"] ?? "";
 
 if(!$token) die("トークンなし");
 
-list($b64,$sign)=explode(".",$token);
+/* 分解 */
+$parts = explode(".",$token);
+if(count($parts) !== 2){
+    die("形式不正");
+}
+
+list($b64,$sign) = $parts;
 
 /* 署名チェック */
 $expected=hash_hmac("sha256",$b64,SECRET_KEY);
@@ -69,14 +75,18 @@ if(!hash_equals($expected,$sign)){
 die("不正トークン");
 }
 
+/* デコード */
 $data=json_decode(base64_decode($b64),true);
+if(!$data){
+    die("デコード失敗");
+}
 
 /* 有効期限 */
-if($data["exp"]<time()){
+if(!isset($data["exp"]) || $data["exp"] < time()){
 die("期限切れ");
 }
 
-/* 出力は必ずエスケープ */
+/* 出力 */
 echo "ログイン成功<br>";
 echo "email: ".htmlspecialchars($data["email"])."<br>";
 echo "username: ".htmlspecialchars($data["username"]);
