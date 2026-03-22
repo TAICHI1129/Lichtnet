@@ -1,5 +1,3 @@
-下に日本語版あり
-
 # Lichtnet Login Integration Guide (For External Site Administrators)
 
 By integrating Lichtnet Login,
