@@ -25,7 +25,7 @@ Lichtnetログインを導入すると、
 
 ```html
 <a href="https://lichtnet.ct.ws/login.php?from=https://yoursite.com/callback.php">
-Lichtnetでログイン
+   <img src="https://lichtnet.ct.ws/img/LoginBtn.png" alt="Lichtnetでログイン" width="200" height="150">
 </a>
 ```
 
