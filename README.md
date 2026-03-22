@@ -4,3 +4,5 @@
 (利用には下のページでURLを登録してください)
 
 [サイトURLを登録](https://lichtnet.ct.ws/client.php)
+
+Are you a website creator? Please see -guide.md.
