@@ -5,4 +5,4 @@
 
 [サイトURLを登録](https://lichtnet.ct.ws/client.php)
 
-Are you a website creator? Please see -guide.md.
+Are you a website creator? Please see guide.md.
